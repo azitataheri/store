@@ -1,8 +1,9 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import api from "../services/config";
 
 const productContext = createContext();
-function ProductsProvider() {
+
+function ProductsProvider({ children }) {
   const [products, setProdutcs] = useState([]);
 
   useEffect(() => {
@@ -16,7 +17,18 @@ function ProductsProvider() {
     fetchData();
   }, []);
 
-  return <productContext.Provider value={products}>{children}</productContext.Provider>;
+  return (
+    <productContext.Provider value={products}>
+      {children}
+    </productContext.Provider>
+  );
 }
 
+const useProducts = () => {
+  const products = useContext(productContext);
+  return products;
+}; // custom hook
+
 export default ProductsProvider;
+// eslint-disable-next-line react-refresh/only-export-components
+export {useProducts};
