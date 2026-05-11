@@ -31,4 +31,4 @@ const useProducts = () => {
 
 export default ProductsProvider;
 // eslint-disable-next-line react-refresh/only-export-components
-export {useProducts};
+export { useProducts };
