@@ -7,25 +7,36 @@ import Card from "../components/Card";
 import Loader from "../components/Loader";
 import { ImSearch } from "react-icons/im";
 import { FaListUl } from "react-icons/fa";
+import { searchProducts } from "../helper/helper";
 
 function ProductsPage() {
   const products = useProducts();
   const [search, setSearch] = useState("");
   const [displayed, setDisplayed] = useState([]);
+  const [query, setQuery] = useState({});
 
   useEffect(() => {
     setDisplayed(products);
   }, [products]);
 
+  // useEffetct for filter queries
+  useEffect(() => {
+    let finalProducts = searchProducts(products, query.search);
+    console.log(finalProducts);
+
+    setDisplayed(finalProducts);
+  }, [query]);
+
   const searchHandler = () => {
-    console.log("search");
+    setQuery((query) => ({ ...query, search }));
+    console.log({ query, search });
   };
 
   const categoryHandler = (e) => {
     const { tagName } = e.target;
     const category = e.target.innerText.toLowerCase();
     if (tagName !== "LI") return;
-    console.log(category);
+    setQuery((query) => ({ ...query, category }));
   };
   return (
     <>
