@@ -4,10 +4,45 @@ const shortenText = (text) => {
 
 const searchProducts = (products, search) => {
      if (!search) return products;
+     //else
      const searchedProducts = products.filter((product) => product.title.toLowerCase().includes(search))
      return searchedProducts
 }
+
+
+const filterProducts = (products, category) => {
+     if (!category) return products;
+     //esle
+     const filteredProducts = products.filter((product) => product.category === category)
+     return filteredProducts
+}
+
+
+const createQueryObject = (currentQuery, newQuery) => {
+     if (newQuery.category === 'all') {
+          const {
+               category,
+               ...rest
+          } = currentQuery
+          return rest;
+     }
+
+     if (newQuery.search === '') {
+          const {
+               search,
+               ...rest
+          } = currentQuery
+          return rest;
+     }
+     //else
+     return {
+          ...currentQuery,
+          ...newQuery
+     }
+}
 export {
      shortenText,
-     searchProducts
+     searchProducts,
+     filterProducts,
+     createQueryObject
 }
