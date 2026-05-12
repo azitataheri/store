@@ -1,12 +1,14 @@
 import { ImSearch } from "react-icons/im";
 import { createQueryObject } from "../helper/helper";
 
+import styles from '../components/SearchBox.module.css'
+
 function SearchBox({search, setQuery, setSearch}) {
       const searchHandler = () => {
     setQuery((query) => createQueryObject(query, { search }));
   };
   return (
-    <div>
+    <div className={styles.search}>
       <input
         type="text"
         placeholder="Search Products..."
