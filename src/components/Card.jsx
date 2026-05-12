@@ -9,15 +9,16 @@ function Card({ product }) {
   const { id, title, image, price } = product;
 
   const [state, dispatch] = useCart();
+console.log(state);
 
   const clickHandler = () => {
     dispatch({
-      type: "add",
+      type: "ADD_ITEM",
       payload: product,
     });
   };
 
-  
+
   return (
     <div className={styles.card}>
       <img src={image} alt={title} style={{ width: "150px" }} />

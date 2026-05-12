@@ -14,12 +14,12 @@ const reducer = (state, action) => {
   switch (action.type) {
     case "ADD_ITEM":
       if (!state.selectedItems.find((item) => item.id === action.payload.id)) {
-        state.selectedItems({ ...action.payload, quantity: 1 });
+        state.selectedItems.push({...action.payload, quantity: 1 })
       }
       return {
-        selectedItems: [...state.selectedItems],
-        ...sumProducts(state.selectedItems),
-        checkout: false,
+        ...state,// four elements of state put and spread here
+        ...sumProducts(state.selectedItems), // replace itemsCounter and total with prev values
+        checkout: false, // checkout value put here that its initial value is false
       };
 
     default:
