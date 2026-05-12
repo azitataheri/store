@@ -13,7 +13,7 @@ console.log(state);
 
   const clickHandler = () => {
     dispatch({
-      type: "ADD_ITEM",
+      type: "REMOVE_ITEM",
       payload: product,
     });
   };

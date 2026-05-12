@@ -14,14 +14,64 @@ const reducer = (state, action) => {
   switch (action.type) {
     case "ADD_ITEM":
       if (!state.selectedItems.find((item) => item.id === action.payload.id)) {
-        state.selectedItems.push({...action.payload, quantity: 1 })
+        const addNewSelectedItems = [
+          ...state.selectedItems,
+          { ...action.payload, quantity: 1 },
+        ];
+        return {
+          ...state,
+          selectedItems: addNewSelectedItems,
+          ...sumProducts(addNewSelectedItems),
+          checkout: false,
+        };
       }
       return {
-        ...state,// four elements of state put and spread here
-        ...sumProducts(state.selectedItems), // replace itemsCounter and total with prev values
-        checkout: false, // checkout value put here that its initial value is false
+        state,
       };
 
+    case "REMOVE_ITEM": {
+      const newSelectedItems = state.selectedItems.filter(
+        (item) => item.id !== action.payload.id,
+      );
+      console.log(newSelectedItems);
+
+      return {
+        ...state,
+        selectedItems: newSelectedItems,
+        ...sumProducts(newSelectedItems),
+      };
+    }
+
+    case "INCREASE": {
+      const increaseIndex = state.selectedItems.findIndex(
+        (item) => item.id === action.payload.id,
+      );
+      state.selectedItems[increaseIndex].quantity++;
+      return {
+        ...state,
+        ...sumProducts(state.selectedItems),
+      };
+    }
+
+    case "DECREASE": {
+      const decreaseIndex = state.selectedItems.findIndex(
+        (item) => item.id === action.payload.id,
+      );
+      state.selectedItems[decreaseIndex].quantity--;
+      return {
+        ...state,
+        ...sumProducts(state.selectedItems),
+      };
+    }
+
+
+    case 'CHECKOUT':
+        return{
+            selectedItems:[],
+            itemCounter:0,
+            total:0,
+            checkout: true
+        }
     default:
       throw new Error("Invalid Action");
   }
