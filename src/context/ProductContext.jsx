@@ -19,15 +19,17 @@ function ProductsProvider({ children }) {
 
   return (
     <productContext.Provider value={products}>
-      {children}
+      {children}      
     </productContext.Provider>
   );
 }
 
+
+// custom hook
 const useProducts = () => {
   const products = useContext(productContext);
   return products;
-}; // custom hook
+}; 
 
 export default ProductsProvider;
 // eslint-disable-next-line react-refresh/only-export-components
